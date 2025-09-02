@@ -1,5 +1,5 @@
 {
-  "originHash" : "9a42e300a80cd78158440dafa1ce43316abb682aacbaeddd8dac57522dc38b63",
+  "originHash" : "77d1526596be7da6541c492d5d5e75e201e6ebd3609fe28c3c2e5a81bc2293f7",
   "pins" : [
     {
       "identity" : "factory",
@@ -8,6 +8,33 @@
       "state" : {
         "revision" : "fb04a8918848e413d3921d346a23bae7f81088d9",
         "version" : "2.4.3"
+      }
+    },
+    {
+      "identity" : "faultordering",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/getsentry/FaultOrdering",
+      "state" : {
+        "branch" : "main",
+        "revision" : "1b2afbd62f02933ec85d58bcaf40ed12f3dbed91"
+      }
+    },
+    {
+      "identity" : "flyingfox",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swhitty/FlyingFox.git",
+      "state" : {
+        "revision" : "f7829d4aca8cbfecb410a1cce872b1b045224aa1",
+        "version" : "0.16.0"
+      }
+    },
+    {
+      "identity" : "simpledebugger",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/EmergeTools/SimpleDebugger",
+      "state" : {
+        "revision" : "f065263eb5db95874b690408d136b573c939db9e",
+        "version" : "1.0.0"
       }
     },
     {

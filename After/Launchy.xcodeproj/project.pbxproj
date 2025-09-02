@@ -7,12 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		16AC11372E67037200451DF1 /* Linkmap.txt in Resources */ = {isa = PBXBuildFile; fileRef = 16AC11362E67037200451DF1 /* Linkmap.txt */; };
+		16AC113A2E6703B800451DF1 /* FaultOrdering in Frameworks */ = {isa = PBXBuildFile; productRef = 16AC11392E6703B800451DF1 /* FaultOrdering */; };
+		16AC113C2E6703B800451DF1 /* FaultOrderingTests in Frameworks */ = {isa = PBXBuildFile; productRef = 16AC113B2E6703B800451DF1 /* FaultOrderingTests */; };
 		16CAB0B02D56605200918DD0 /* AsyncAlgorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 16CAB0AF2D56605200918DD0 /* AsyncAlgorithms */; };
 		16E3DEEC2D49758000867C34 /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = 16E3DEEB2D49758000867C34 /* Factory */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		16AC11302E67032400451DF1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 168D68A62D4839B2007F6501 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 168D68AD2D4839B2007F6501;
+			remoteInfo = Launchy;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		168D68AE2D4839B2007F6501 /* Launchy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Launchy.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		16AC112A2E67032400451DF1 /* LaunchyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LaunchyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		16AC11362E67037200451DF1 /* Linkmap.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Linkmap.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -34,6 +49,11 @@
 			path = Launchy;
 			sourceTree = "<group>";
 		};
+		16AC112B2E67032400451DF1 /* LaunchyUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = LaunchyUITests;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,13 +66,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		16AC11272E67032400451DF1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				16AC113A2E6703B800451DF1 /* FaultOrdering in Frameworks */,
+				16AC113C2E6703B800451DF1 /* FaultOrderingTests in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		168D68A52D4839B2007F6501 = {
 			isa = PBXGroup;
 			children = (
+				16AC11362E67037200451DF1 /* Linkmap.txt */,
 				168D68B02D4839B2007F6501 /* Launchy */,
+				16AC112B2E67032400451DF1 /* LaunchyUITests */,
 				168D68AF2D4839B2007F6501 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -61,6 +92,7 @@
 			isa = PBXGroup;
 			children = (
 				168D68AE2D4839B2007F6501 /* Launchy.app */,
+				16AC112A2E67032400451DF1 /* LaunchyUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -92,6 +124,31 @@
 			productReference = 168D68AE2D4839B2007F6501 /* Launchy.app */;
 			productType = "com.apple.product-type.application";
 		};
+		16AC11292E67032400451DF1 /* LaunchyUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 16AC11322E67032400451DF1 /* Build configuration list for PBXNativeTarget "LaunchyUITests" */;
+			buildPhases = (
+				16AC11262E67032400451DF1 /* Sources */,
+				16AC11272E67032400451DF1 /* Frameworks */,
+				16AC11282E67032400451DF1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				16AC11312E67032400451DF1 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				16AC112B2E67032400451DF1 /* LaunchyUITests */,
+			);
+			name = LaunchyUITests;
+			packageProductDependencies = (
+				16AC11392E6703B800451DF1 /* FaultOrdering */,
+				16AC113B2E6703B800451DF1 /* FaultOrderingTests */,
+			);
+			productName = LaunchyUITests;
+			productReference = 16AC112A2E67032400451DF1 /* LaunchyUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -99,11 +156,15 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1620;
+				LastSwiftUpdateCheck = 1640;
 				LastUpgradeCheck = 1620;
 				TargetAttributes = {
 					168D68AD2D4839B2007F6501 = {
 						CreatedOnToolsVersion = 16.2;
+					};
+					16AC11292E67032400451DF1 = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = 168D68AD2D4839B2007F6501;
 					};
 				};
 			};
@@ -119,6 +180,7 @@
 			packageReferences = (
 				168D68D32D48CDD8007F6501 /* XCRemoteSwiftPackageReference "Factory" */,
 				16CAB0AE2D56605200918DD0 /* XCRemoteSwiftPackageReference "swift-async-algorithms" */,
+				16AC11382E6703B800451DF1 /* XCRemoteSwiftPackageReference "FaultOrdering" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 168D68AF2D4839B2007F6501 /* Products */;
@@ -126,6 +188,7 @@
 			projectRoot = "";
 			targets = (
 				168D68AD2D4839B2007F6501 /* Launchy */,
+				16AC11292E67032400451DF1 /* LaunchyUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -135,6 +198,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		16AC11282E67032400451DF1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				16AC11372E67037200451DF1 /* Linkmap.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,7 +219,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		16AC11262E67032400451DF1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		16AC11312E67032400451DF1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 168D68AD2D4839B2007F6501 /* Launchy */;
+			targetProxy = 16AC11302E67032400451DF1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		168D68C22D4839B3007F6501 /* Debug */ = {
@@ -165,6 +251,8 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_GENERATE_MAP_FILE = YES;
+				LD_MAP_FILE_PATH = "$(PROJECT_DIR)/Linkmap.txt";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -192,6 +280,8 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_GENERATE_MAP_FILE = YES;
+				LD_MAP_FILE_PATH = "$(PROJECT_DIR)/Linkmap.txt";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -325,6 +415,43 @@
 			};
 			name = Release;
 		};
+		16AC11332E67032400451DF1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 72MWNL29YV;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jacob.LaunchyUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Launchy;
+			};
+			name = Debug;
+		};
+		16AC11342E67032400451DF1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 72MWNL29YV;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jacob.LaunchyUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Launchy;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -346,6 +473,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		16AC11322E67032400451DF1 /* Build configuration list for PBXNativeTarget "LaunchyUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				16AC11332E67032400451DF1 /* Debug */,
+				16AC11342E67032400451DF1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
@@ -355,6 +491,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 2.4.3;
+			};
+		};
+		16AC11382E6703B800451DF1 /* XCRemoteSwiftPackageReference "FaultOrdering" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/getsentry/FaultOrdering";
+			requirement = {
+				branch = main;
+				kind = branch;
 			};
 		};
 		16CAB0AE2D56605200918DD0 /* XCRemoteSwiftPackageReference "swift-async-algorithms" */ = {
@@ -368,6 +512,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		16AC11392E6703B800451DF1 /* FaultOrdering */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 16AC11382E6703B800451DF1 /* XCRemoteSwiftPackageReference "FaultOrdering" */;
+			productName = FaultOrdering;
+		};
+		16AC113B2E6703B800451DF1 /* FaultOrderingTests */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 16AC11382E6703B800451DF1 /* XCRemoteSwiftPackageReference "FaultOrdering" */;
+			productName = FaultOrderingTests;
+		};
 		16CAB0AF2D56605200918DD0 /* AsyncAlgorithms */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 16CAB0AE2D56605200918DD0 /* XCRemoteSwiftPackageReference "swift-async-algorithms" */;

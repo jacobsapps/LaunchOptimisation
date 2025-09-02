@@ -20,7 +20,16 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         let startTime = CFAbsoluteTimeGetCurrent()
         print("🚀 Starting Launchy launch sequence...")
         
-        LaunchOrchestrator.shared.executeCriticalLaunchPath()
+        // Create semaphore to block main thread during parallel execution
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        Task.detached(priority: .high) {
+            await LaunchOrchestrator.shared.executeCriticalLaunchPath()
+            semaphore.signal()
+        }
+        
+        // Block main thread until parallel execution completes
+        semaphore.wait()
         
         let totalTime = CFAbsoluteTimeGetCurrent() - startTime
         print("⏱ Total launch time: \(String(format: "%.2f", totalTime))s")

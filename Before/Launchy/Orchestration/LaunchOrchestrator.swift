@@ -52,7 +52,7 @@ class LaunchOrchestrator {
         
         // Infrastructure Layer (depends on Foundation)
         launchSteps.append(CrashReportingStep()) // depends on LoggingConfiguration
-//        launchSteps.append(DatabaseSchemaStep()) // depends on SecureStorage - ❌ step missing!
+        launchSteps.append(DatabaseSchemaStep()) // depends on SecureStorage
         launchSteps.append(APIConfigurationStep()) // depends on AppConfig, NetworkMonitoring
         launchSteps.append(DIContainerStep()) // depends on AppConfig
         launchSteps.append(FeatureFlagsStep()) // depends on AppConfig, NetworkMonitoring

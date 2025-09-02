@@ -17,15 +17,14 @@ class LaunchOrchestrator {
         setupAllSteps()
     }
     
-    func executeCriticalLaunchPath() {
+    func executeCriticalLaunchPath() async {
         let startTime = CFAbsoluteTimeGetCurrent()
         print("🚀 Starting optimized app launch sequence...")
         
-        // Execute main thread steps first (critical for UI and database)
-        executeMainThreadSteps()
+        await executeMainThreadStepsInParallel()
         
-        let mainThreadTime = CFAbsoluteTimeGetCurrent() - startTime
-        print("🎯 Main thread launch completed in \(String(format: "%.2f", mainThreadTime))s")
+        let totalTime = CFAbsoluteTimeGetCurrent() - startTime
+        print("🎯 Main thread launch completed in \(String(format: "%.2f", totalTime))s")
     }
     
     func executeBackgroundLaunchPath() {
@@ -39,7 +38,7 @@ class LaunchOrchestrator {
         print("🎉 Background launch sequence finished in \(String(format: "%.2f", totalTime))s")
     }
     
-    private func executeMainThreadSteps() {
+    private func executeMainThreadStepsInParallel() async {
         let mainSteps: [LaunchStep] = [
             AppConfigStep(),
             LoggingConfigurationStep(),
@@ -56,9 +55,14 @@ class LaunchOrchestrator {
             CriticalFeaturesStep()
         ]
         
-        print("⚡ Executing main thread steps...")
-        for step in mainSteps {
-            executeStep(step)
+        print("⚡ Executing main thread steps in parallel...")
+        
+        await withTaskGroup(of: Void.self) { group in
+            for step in mainSteps {
+                group.addTask {
+                    self.executeStep(step)
+                }
+            }
         }
     }
     

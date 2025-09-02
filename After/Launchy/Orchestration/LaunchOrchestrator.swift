@@ -11,7 +11,6 @@ class LaunchOrchestrator {
     static let shared = LaunchOrchestrator()
     
     private var allSteps: [LaunchStep] = []
-    private var executedSteps = Set<String>()
     
     private init() {
         setupAllSteps()
@@ -42,11 +41,16 @@ class LaunchOrchestrator {
         let mainSteps: [LaunchStep] = [
             AppConfigStep(),
             LoggingConfigurationStep(),
+            NetworkMonitoringStep(),
             SecureStorageStep(),
             UserDefaultsStep(),
+            AudioSessionStep(),
             CrashReportingStep(),
             DatabaseSchemaStep(),
+            APIConfigurationStep(),
+            DIContainerStep(),
             FeatureFlagsStep(),
+            PermissionsStep(),
             PersistenceStep(),
             MigrationStep(),
             AuthStep(),
@@ -55,24 +59,45 @@ class LaunchOrchestrator {
             CriticalFeaturesStep()
         ]
         
-        print("⚡ Executing main thread steps in parallel...")
+        print("⚡ Executing main thread steps with intelligent worker system...")
+        
+        // Create dependency resolver with all steps
+        let resolver = DependencyResolver(steps: mainSteps)
+        
+        // Create workers based on CPU core count
+        let workerCount = ProcessInfo.processInfo.activeProcessorCount - 1 // ignore main thread
+        print("🔧 Created \(workerCount) workers for parallel execution")
         
         await withTaskGroup(of: Void.self) { group in
-            for step in mainSteps {
+            for workerId in 0..<workerCount {
                 group.addTask {
-                    self.executeStep(step)
+                    await self.runWorker(id: workerId, resolver: resolver)
                 }
             }
         }
+        
+        print("✅ All workers completed - \(await resolver.getCompletedStepCount()) steps executed")
+    }
+    
+    private func runWorker(id: Int, resolver: DependencyResolver) async {
+        print("👷 Worker \(id) started")
+        
+        while await !resolver.allStepsComplete() {
+            if let step = await resolver.getAndClaimNextAvailableStep() {
+                print("👷 Worker \(id) executing: \(step.name)")
+                executeStep(step)
+                await resolver.markStepComplete(type(of: step))
+            } else {
+                // No steps available right now, brief pause
+                try? await Task.sleep(nanoseconds: 5_000_000) // 5ms
+            }
+        }
+        
+        print("👷 Worker \(id) finished")
     }
     
     private func executeBackgroundSteps() {
         let backgroundSteps: [LaunchStep] = [
-            NetworkMonitoringStep(),
-            AudioSessionStep(),
-            APIConfigurationStep(),
-            DIContainerStep(),
-            PermissionsStep(),
             CacheConfigurationStep(),
             ListenersStep(),
             PushNotificationsStep(),
@@ -95,7 +120,6 @@ class LaunchOrchestrator {
         
         print("⚡ Executing: \(step.name)")
         step.execute()
-        executedSteps.insert(step.name)
         
         let stepDuration = CFAbsoluteTimeGetCurrent() - stepStartTime
         print("✅ Completed: \(step.name) in \(String(format: "%.1f", stepDuration * 1000))ms")
@@ -119,7 +143,6 @@ class LaunchOrchestrator {
             
             print("⚡ Executing: \(step.name)")
             step.execute()
-            executedSteps.insert(step.name)
             
             let stepDuration = CFAbsoluteTimeGetCurrent() - stepStartTime
             print("✅ Completed: \(step.name) in \(String(format: "%.1f", stepDuration * 1000))ms")

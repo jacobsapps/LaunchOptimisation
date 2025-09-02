@@ -6,22 +6,27 @@
 //
 
 import Foundation
+import Synchronization
 
 class LaunchTimeProfiler {
     static let shared = LaunchTimeProfiler()
     
-    private var stepTimes: [String: TimeInterval] = [:]
+    private let stepTimes = Mutex<[String: TimeInterval]>([:])
     private var startTime: CFAbsoluteTime = 0
     
     private init() {}
     
     func startProfiling() {
         startTime = CFAbsoluteTimeGetCurrent()
-        stepTimes.removeAll()
+        stepTimes.withLock { times in
+            times.removeAll()
+        }
     }
     
     func recordStepTime(_ stepName: String, duration: TimeInterval) {
-        stepTimes[stepName] = duration
+        stepTimes.withLock { times in
+            times[stepName] = duration
+        }
     }
     
     func getTotalLaunchTime() -> TimeInterval {
@@ -37,7 +42,9 @@ class LaunchTimeProfiler {
         
         report += "Step-by-step breakdown:\n"
         
-        let sortedSteps = stepTimes.sorted { $0.value > $1.value }
+        let sortedSteps = stepTimes.withLock { times in
+            return times.sorted { $0.value > $1.value }
+        }
         
         for (stepName, duration) in sortedSteps {
             let percentage = (duration / totalTime) * 100
@@ -56,8 +63,10 @@ class LaunchTimeProfiler {
     }
     
     func identifyBottlenecks(threshold: TimeInterval = 0.1) -> [String] {
-        return stepTimes.compactMap { stepName, duration in
-            duration > threshold ? stepName : nil
-        }.sorted { stepTimes[$0] ?? 0 > stepTimes[$1] ?? 0 }
+        return stepTimes.withLock { times in
+            return times.compactMap { stepName, duration in
+                duration > threshold ? stepName : nil
+            }.sorted { times[$0] ?? 0 > times[$1] ?? 0 }
+        }
     }
 }

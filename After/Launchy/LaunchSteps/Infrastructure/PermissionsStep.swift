@@ -11,12 +11,11 @@ import Photos
 
 class PermissionsStep: LaunchStep {
     let name = "Permissions"
-    let dependencies = ["UserDefaults"]
+    let dependencies: [LaunchStep.Type] = [UserDefaultsStep.self]
     let priority = LaunchPriority.medium
-    let isBlocking = true
-    
+
     func execute() {
-        Thread.sleep(forTimeInterval: 0.05) // 50ms
+        Thread.sleep(forTimeInterval: 0.008) // 8ms
         
         // Check and cache system permissions (camera, photos, location)
         let cameraStatus = AVCaptureDevice.authorizationStatus(for: .video)

@@ -9,10 +9,9 @@ import Foundation
 
 class AppConfigStep: LaunchStep {
     let name = "AppConfig"
-    let dependencies: [String] = []
+    let dependencies: [LaunchStep.Type] = []
     let priority = LaunchPriority.critical
-    let isBlocking = true
-    
+
     func execute() {
         Thread.sleep(forTimeInterval: 0.05) // 50ms
         

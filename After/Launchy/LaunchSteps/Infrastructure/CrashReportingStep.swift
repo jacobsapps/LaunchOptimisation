@@ -9,10 +9,9 @@ import Foundation
 
 class CrashReportingStep: LaunchStep {
     let name = "CrashReporting"
-    let dependencies = ["LoggingConfiguration"]
+    let dependencies: [LaunchStep.Type] = [LoggingConfigurationStep.self]
     let priority = LaunchPriority.high
-    let isBlocking = true
-    
+
     func execute() {
         Thread.sleep(forTimeInterval: 0.2) // 200ms
         

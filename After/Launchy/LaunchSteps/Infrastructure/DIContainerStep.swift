@@ -10,12 +10,11 @@ import Factory
 
 class DIContainerStep: LaunchStep {
     let name = "DIContainer"
-    let dependencies = ["AppConfig"]
+    let dependencies: [LaunchStep.Type] = [AppConfigStep.self]
     let priority = LaunchPriority.high
-    let isBlocking = true
-    
+
     func execute() {
-        Thread.sleep(forTimeInterval: 0.12) // 120ms
+        Thread.sleep(forTimeInterval: 0.010) // 10ms
         
         // Simulate build Factory dependency graph, register all services
         print("Building dependency injection container...")

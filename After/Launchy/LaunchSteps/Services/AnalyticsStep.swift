@@ -9,10 +9,9 @@ import Foundation
 
 class AnalyticsStep: LaunchStep {
     let name = "Analytics"
-    let dependencies = ["AppConfig", "UserDefaults", "Auth"]
+    let dependencies: [LaunchStep.Type] = [AppConfigStep.self, UserDefaultsStep.self, AuthStep.self]
     let priority = LaunchPriority.medium
-    let isBlocking = true
-    
+
     func execute() {
         Thread.sleep(forTimeInterval: 0.15) // 150ms
         

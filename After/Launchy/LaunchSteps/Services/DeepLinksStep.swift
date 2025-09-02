@@ -9,10 +9,9 @@ import Foundation
 
 class DeepLinksStep: LaunchStep {
     let name = "DeepLinks"
-    let dependencies = ["AppConfig", "Auth"]
+    let dependencies: [LaunchStep.Type] = [AppConfigStep.self, AuthStep.self]
     let priority = LaunchPriority.high
-    let isBlocking = true
-    
+
     func execute() {
         Thread.sleep(forTimeInterval: 0.06) // 60ms
         

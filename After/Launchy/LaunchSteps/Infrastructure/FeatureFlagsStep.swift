@@ -9,10 +9,9 @@ import Foundation
 
 class FeatureFlagsStep: LaunchStep {
     let name = "FeatureFlags"
-    let dependencies = ["AppConfig", "NetworkMonitoring"]
+    let dependencies: [LaunchStep.Type] = [AppConfigStep.self, NetworkMonitoringStep.self]
     let priority = LaunchPriority.high
-    let isBlocking = true
-    
+
     func execute() {
         Thread.sleep(forTimeInterval: 0.15) // 150ms
         

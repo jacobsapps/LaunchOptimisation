@@ -9,12 +9,11 @@ import Foundation
 
 class APIConfigurationStep: LaunchStep {
     let name = "APIConfiguration"
-    let dependencies = ["AppConfig", "NetworkMonitoring"]
+    let dependencies: [LaunchStep.Type] = [AppConfigStep.self, NetworkMonitoringStep.self]
     let priority = LaunchPriority.critical
-    let isBlocking = true
-    
+
     func execute() {
-        Thread.sleep(forTimeInterval: 0.08) // 80ms
+        Thread.sleep(forTimeInterval: 0.008) // 8ms
         
         // Simulate configure URLSession with custom headers, set up certificate pinning
         let config = URLSessionConfiguration.default

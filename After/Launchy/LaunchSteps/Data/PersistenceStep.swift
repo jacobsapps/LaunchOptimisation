@@ -9,10 +9,9 @@ import Foundation
 
 class PersistenceStep: LaunchStep {
     let name = "Persistence"
-    let dependencies = ["AppConfig", "DatabaseSchema"]
+    let dependencies: [LaunchStep.Type] = [AppConfigStep.self, DatabaseSchemaStep.self]
     let priority = LaunchPriority.critical
-    let isBlocking = true
-    
+
     func execute() {
         Thread.sleep(forTimeInterval: 0.4) // 400ms - one of the longest steps
         

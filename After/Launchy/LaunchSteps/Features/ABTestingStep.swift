@@ -9,10 +9,9 @@ import Foundation
 
 class ABTestingStep: LaunchStep {
     let name = "ABTesting"
-    let dependencies = ["FeatureFlags", "Analytics"]
+    let dependencies: [LaunchStep.Type] = [FeatureFlagsStep.self, AnalyticsStep.self]
     let priority = LaunchPriority.medium
-    let isBlocking = true
-    
+
     func execute() {
         Thread.sleep(forTimeInterval: 0.12) // 120ms
         

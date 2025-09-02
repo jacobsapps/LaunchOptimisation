@@ -10,10 +10,9 @@ import CoreData
 
 class DatabaseSchemaStep: LaunchStep {
     let name = "DatabaseSchema"
-    let dependencies = ["SecureStorage"]
+    let dependencies: [LaunchStep.Type] = [SecureStorageStep.self]
     let priority = LaunchPriority.critical
-    let isBlocking = true
-    
+
     func execute() {
         Thread.sleep(forTimeInterval: 0.3) // 300ms
         

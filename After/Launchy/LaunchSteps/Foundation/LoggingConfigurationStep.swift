@@ -10,10 +10,9 @@ import os.log
 
 class LoggingConfigurationStep: LaunchStep {
     let name = "LoggingConfiguration"
-    let dependencies: [String] = []
+    let dependencies: [LaunchStep.Type] = []
     let priority = LaunchPriority.high
-    let isBlocking = true
-    
+
     func execute() {
         Thread.sleep(forTimeInterval: 0.02) // 20ms
         

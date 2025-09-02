@@ -10,10 +10,9 @@ import UIKit
 
 class ListenersStep: LaunchStep {
     let name = "Listeners"
-    let dependencies = ["APIConfiguration", "Persistence"]
+    let dependencies: [LaunchStep.Type] = [APIConfigurationStep.self, PersistenceStep.self]
     let priority = LaunchPriority.medium
-    let isBlocking = true
-    
+
     func execute() {
         Thread.sleep(forTimeInterval: 0.1) // 100ms
         

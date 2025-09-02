@@ -9,10 +9,9 @@ import Foundation
 
 class LiveActivitiesStep: LaunchStep {
     let name = "LiveActivities"
-    let dependencies = ["APIConfiguration", "PushNotifications"]
+    let dependencies: [LaunchStep.Type] = [APIConfigurationStep.self, PushNotificationsStep.self]
     let priority = LaunchPriority.low
-    let isBlocking = true
-    
+
     func execute() {
         Thread.sleep(forTimeInterval: 0.15) // 150ms
         

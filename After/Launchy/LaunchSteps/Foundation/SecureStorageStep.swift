@@ -10,10 +10,9 @@ import Security
 
 class SecureStorageStep: LaunchStep {
     let name = "SecureStorage"
-    let dependencies: [String] = []
+    let dependencies: [LaunchStep.Type] = []
     let priority = LaunchPriority.critical
-    let isBlocking = true
-    
+
     func execute() {
         Thread.sleep(forTimeInterval: 0.1) // 100ms
         

@@ -9,19 +9,18 @@ import Foundation
 
 class LaunchFinishedStep: LaunchStep {
     let name = "LaunchFinished"
-    let dependencies = [
+    let dependencies: [LaunchStep.Type] = [
         // All previous steps
-        "AppConfig", "LoggingConfiguration", "NetworkMonitoring", "SecureStorage", 
-        "UserDefaults", "AudioSession", "CrashReporting", "DatabaseSchema",
-        "APIConfiguration", "DIContainer", "FeatureFlags", "Permissions",
-        "Persistence", "CacheConfiguration", "Migration", "Auth", "Listeners",
-        "Analytics", "PushNotifications", "RemoteConfiguration", "DeepLinks",
-        "InAppPurchase", "CriticalFeatures", "NonCriticalFeatures", "ABTesting",
-        "PhotoProcessing", "LiveActivities"
+        AppConfigStep.self, LoggingConfigurationStep.self, NetworkMonitoringStep.self, SecureStorageStep.self,
+        UserDefaultsStep.self, AudioSessionStep.self, CrashReportingStep.self, DatabaseSchemaStep.self,
+        APIConfigurationStep.self, DIContainerStep.self, FeatureFlagsStep.self, PermissionsStep.self,
+        PersistenceStep.self, CacheConfigurationStep.self, MigrationStep.self, AuthStep.self, ListenersStep.self,
+        AnalyticsStep.self, PushNotificationsStep.self, RemoteConfigurationStep.self, DeepLinksStep.self,
+        InAppPurchaseStep.self, CriticalFeaturesStep.self, NonCriticalFeaturesStep.self, ABTestingStep.self,
+        PhotoProcessingStep.self, LiveActivitiesStep.self
     ]
     let priority = LaunchPriority.high
-    let isBlocking = true
-    
+
     func execute() {
         Thread.sleep(forTimeInterval: 0.005) // 5ms
         

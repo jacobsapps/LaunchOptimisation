@@ -9,10 +9,9 @@ import Foundation
 
 class RemoteConfigurationStep: LaunchStep {
     let name = "RemoteConfiguration"
-    let dependencies = ["APIConfiguration", "Auth"]
+    let dependencies: [LaunchStep.Type] = [APIConfigurationStep.self, AuthStep.self]
     let priority = LaunchPriority.medium
-    let isBlocking = true
-    
+
     func execute() {
         Thread.sleep(forTimeInterval: 0.18) // 180ms
         

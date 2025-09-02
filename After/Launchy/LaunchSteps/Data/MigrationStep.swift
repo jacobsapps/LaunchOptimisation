@@ -9,10 +9,9 @@ import Foundation
 
 class MigrationStep: LaunchStep {
     let name = "Migration"
-    let dependencies = ["Persistence", "DatabaseSchema"]
+    let dependencies: [LaunchStep.Type] = [PersistenceStep.self, DatabaseSchemaStep.self]
     let priority = LaunchPriority.critical
-    let isBlocking = true
-    
+
     func execute() {
         // Simulate random migration - 10% chance of long migration, 90% chance of quick check
         let needsMigration = Int.random(in: 1...10) == 1

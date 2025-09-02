@@ -10,10 +10,9 @@ import AVFoundation
 
 class AudioSessionStep: LaunchStep {
     let name = "AudioSession"
-    let dependencies: [String] = []
+    let dependencies: [LaunchStep.Type] = []
     let priority = LaunchPriority.low
-    let isBlocking = true
-    
+
     func execute() {
         Thread.sleep(forTimeInterval: 0.005) // 5ms
         

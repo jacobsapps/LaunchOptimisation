@@ -9,10 +9,9 @@ import Foundation
 
 class UserDefaultsStep: LaunchStep {
     let name = "UserDefaults"
-    let dependencies: [String] = []
+    let dependencies: [LaunchStep.Type] = []
     let priority = LaunchPriority.medium
-    let isBlocking = true
-    
+
     func execute() {
         Thread.sleep(forTimeInterval: 0.01) // 10ms
         

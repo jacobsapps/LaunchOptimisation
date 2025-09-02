@@ -10,10 +10,9 @@ import CoreImage
 
 class PhotoProcessingStep: LaunchStep {
     let name = "PhotoProcessing"
-    let dependencies = ["Permissions", "CacheConfiguration"]
+    let dependencies: [LaunchStep.Type] = [PermissionsStep.self, CacheConfigurationStep.self]
     let priority = LaunchPriority.low
-    let isBlocking = true
-    
+
     func execute() {
         Thread.sleep(forTimeInterval: 0.16) // 160ms
         

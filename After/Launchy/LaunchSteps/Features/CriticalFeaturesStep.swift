@@ -9,10 +9,9 @@ import Foundation
 
 class CriticalFeaturesStep: LaunchStep {
     let name = "CriticalFeatures"
-    let dependencies = ["Persistence", "APIConfiguration", "FeatureFlags", "DIContainer"]
+    let dependencies: [LaunchStep.Type] = [APIConfigurationStep.self, FeatureFlagsStep.self, DIContainerStep.self]
     let priority = LaunchPriority.critical
-    let isBlocking = true
-    
+
     func execute() {
         Thread.sleep(forTimeInterval: 0.35) // 350ms - second longest step
         

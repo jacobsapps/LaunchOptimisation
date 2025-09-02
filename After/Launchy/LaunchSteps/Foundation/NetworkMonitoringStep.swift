@@ -10,12 +10,11 @@ import Network
 
 class NetworkMonitoringStep: LaunchStep {
     let name = "NetworkMonitoring"
-    let dependencies: [String] = []
+    let dependencies: [LaunchStep.Type] = []
     let priority = LaunchPriority.high
-    let isBlocking = true
-    
+
     func execute() {
-        Thread.sleep(forTimeInterval: 0.08) // 80ms
+        Thread.sleep(forTimeInterval: 0.008) // 8ms
         
         // Simulate set up NWPathMonitor for network reachability
         let monitor = NWPathMonitor()

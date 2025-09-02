@@ -9,10 +9,9 @@ import Foundation
 
 class CacheConfigurationStep: LaunchStep {
     let name = "CacheConfiguration"
-    let dependencies = ["Persistence"]
+    let dependencies: [LaunchStep.Type] = [PersistenceStep.self]
     let priority = LaunchPriority.medium
-    let isBlocking = true
-    
+
     func execute() {
         Thread.sleep(forTimeInterval: 0.06) // 60ms
         

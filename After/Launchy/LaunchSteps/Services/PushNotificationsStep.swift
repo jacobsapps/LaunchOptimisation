@@ -10,10 +10,9 @@ import UserNotifications
 
 class PushNotificationsStep: LaunchStep {
     let name = "PushNotifications"
-    let dependencies = ["Auth", "APIConfiguration"]
+    let dependencies: [LaunchStep.Type] = [AuthStep.self, APIConfigurationStep.self]
     let priority = LaunchPriority.medium
-    let isBlocking = true
-    
+
     func execute() {
         Thread.sleep(forTimeInterval: 0.12) // 120ms
         

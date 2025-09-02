@@ -9,10 +9,9 @@ import Foundation
 
 class AuthStep: LaunchStep {
     let name = "Auth"
-    let dependencies = ["SecureStorage", "APIConfiguration", "NetworkMonitoring"]
+    let dependencies: [LaunchStep.Type] = [SecureStorageStep.self, APIConfigurationStep.self, NetworkMonitoringStep.self]
     let priority = LaunchPriority.critical
-    let isBlocking = true
-    
+
     func execute() {
         Thread.sleep(forTimeInterval: 0.25) // 250ms
         

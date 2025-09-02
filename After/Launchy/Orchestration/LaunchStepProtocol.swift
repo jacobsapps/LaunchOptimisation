@@ -9,9 +9,8 @@ import Foundation
 
 protocol LaunchStep {
     var name: String { get }
-    var dependencies: [String] { get }
+    var dependencies: [LaunchStep.Type] { get }
     var priority: LaunchPriority { get }
-    var isBlocking: Bool { get }
     
     func execute() // Synchronous, blocking execution
 }

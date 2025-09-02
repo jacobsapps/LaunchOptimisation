@@ -10,10 +10,9 @@ import StoreKit
 
 class InAppPurchaseStep: LaunchStep {
     let name = "InAppPurchase"
-    let dependencies = ["Auth", "APIConfiguration"]
+    let dependencies: [LaunchStep.Type] = [AuthStep.self, APIConfigurationStep.self]
     let priority = LaunchPriority.low
-    let isBlocking = true
-    
+
     func execute() {
         Thread.sleep(forTimeInterval: 0.18) // 180ms
         

@@ -9,10 +9,9 @@ import Foundation
 
 class NonCriticalFeaturesStep: LaunchStep {
     let name = "NonCriticalFeatures"
-    let dependencies = ["CriticalFeatures", "Analytics"]
+    let dependencies: [LaunchStep.Type] = [CriticalFeaturesStep.self, AnalyticsStep.self]
     let priority = LaunchPriority.low
-    let isBlocking = true
-    
+
     func execute() {
         Thread.sleep(forTimeInterval: 0.2) // 200ms
         

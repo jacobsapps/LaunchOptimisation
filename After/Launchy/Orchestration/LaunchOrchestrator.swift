@@ -17,6 +17,89 @@ class LaunchOrchestrator {
         setupAllSteps()
     }
     
+    func executeCriticalLaunchPath() {
+        let startTime = CFAbsoluteTimeGetCurrent()
+        print("🚀 Starting optimized app launch sequence...")
+        
+        // Execute main thread steps first (critical for UI and database)
+        executeMainThreadSteps()
+        
+        let mainThreadTime = CFAbsoluteTimeGetCurrent() - startTime
+        print("🎯 Main thread launch completed in \(String(format: "%.2f", mainThreadTime))s")
+    }
+    
+    func executeBackgroundLaunchPath() {
+        let startTime = CFAbsoluteTimeGetCurrent()
+        print("🚀 Starting background launch sequence...")
+        
+        executeBackgroundSteps()
+        executeStep(LaunchFinishedStep())
+        
+        let totalTime = CFAbsoluteTimeGetCurrent() - startTime
+        print("🎉 Background launch sequence finished in \(String(format: "%.2f", totalTime))s")
+    }
+    
+    private func executeMainThreadSteps() {
+        let mainSteps: [LaunchStep] = [
+            AppConfigStep(),
+            LoggingConfigurationStep(),
+            SecureStorageStep(),
+            UserDefaultsStep(),
+            CrashReportingStep(),
+            DatabaseSchemaStep(),
+            FeatureFlagsStep(),
+            PersistenceStep(),
+            MigrationStep(),
+            AuthStep(),
+            DeepLinksStep(),
+            AnalyticsStep(),
+            CriticalFeaturesStep()
+        ]
+        
+        print("⚡ Executing main thread steps...")
+        for step in mainSteps {
+            executeStep(step)
+        }
+    }
+    
+    private func executeBackgroundSteps() {
+        let backgroundSteps: [LaunchStep] = [
+            NetworkMonitoringStep(),
+            AudioSessionStep(),
+            APIConfigurationStep(),
+            DIContainerStep(),
+            PermissionsStep(),
+            CacheConfigurationStep(),
+            ListenersStep(),
+            PushNotificationsStep(),
+            RemoteConfigurationStep(),
+            InAppPurchaseStep(),
+            ABTestingStep(),
+            PhotoProcessingStep(),
+            LiveActivitiesStep(),
+            NonCriticalFeaturesStep()
+        ]
+        
+        print("🔄 Executing background steps...")
+        for step in backgroundSteps {
+            executeStep(step)
+        }
+    }
+    
+    private func executeStep(_ step: LaunchStep) {
+        let stepStartTime = CFAbsoluteTimeGetCurrent()
+        
+        print("⚡ Executing: \(step.name)")
+        step.execute()
+        executedSteps.insert(step.name)
+        
+        let stepDuration = CFAbsoluteTimeGetCurrent() - stepStartTime
+        print("✅ Completed: \(step.name) in \(String(format: "%.1f", stepDuration * 1000))ms")
+        
+        // Record step time in profiler
+        LaunchTimeProfiler.shared.recordStepTime(step.name, duration: stepDuration)
+    }
+    
     func executeAllStepsBlocking() {
         let startTime = CFAbsoluteTimeGetCurrent()
         print("🚀 Starting app launch sequence...")
@@ -58,7 +141,7 @@ class LaunchOrchestrator {
         
         // Infrastructure Layer (depends on Foundation)
         allSteps.append(CrashReportingStep()) // depends on LoggingConfiguration
-//        allSteps.append(DatabaseSchemaStep()) // depends on SecureStorage
+        allSteps.append(DatabaseSchemaStep()) // depends on SecureStorage
         allSteps.append(APIConfigurationStep()) // depends on AppConfig, NetworkMonitoring
         allSteps.append(DIContainerStep()) // depends on AppConfig
         allSteps.append(FeatureFlagsStep()) // depends on AppConfig, NetworkMonitoring

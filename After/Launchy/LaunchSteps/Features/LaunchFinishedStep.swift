@@ -32,14 +32,6 @@ class LaunchFinishedStep: LaunchStep {
             userInfo: ["timestamp": Date()]
         )
         
-        // Simulate trigger deferred work, start background tasks
-        DispatchQueue.global(qos: .background).async {
-            print("Starting background tasks...")
-        }
-        
-        // Simulate begin pre-fetching content
-        print("Starting content pre-fetch...")
-        
         print("✅ Launch sequence completed - App ready!")
     }
 }

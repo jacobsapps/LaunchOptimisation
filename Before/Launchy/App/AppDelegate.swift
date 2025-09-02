@@ -20,24 +20,14 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         let startTime = CFAbsoluteTimeGetCurrent()
         print("🚀 Starting Launchy launch sequence...")
         
-        // Execute all launch steps synchronously on main thread
-        // This blocks the UI and creates the performance bottleneck we want to demonstrate
-        LaunchOrchestrator.shared.executeAllStepsBlocking()
+        // Execute all app setup launch steps
+        LaunchOrchestrator.shared.executeLaunchSteps()
         
         let totalTime = CFAbsoluteTimeGetCurrent() - startTime
         print("⏱ Total launch time: \(String(format: "%.2f", totalTime))s")
         
         // Print profiling report
         LaunchTimeProfiler.shared.printReport()
-        
-        // Identify bottlenecks for optimization opportunities
-        let bottlenecks = LaunchTimeProfiler.shared.identifyBottlenecks(threshold: 0.1)
-        if !bottlenecks.isEmpty {
-            print("\n🔍 Optimization opportunities (>100ms):")
-            for bottleneck in bottlenecks {
-                print("  • \(bottleneck)")
-            }
-        }
         
         return true
     }

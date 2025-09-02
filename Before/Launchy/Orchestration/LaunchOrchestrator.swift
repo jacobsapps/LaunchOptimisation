@@ -10,24 +10,18 @@ import Foundation
 class LaunchOrchestrator {
     static let shared = LaunchOrchestrator()
     
-    private var allSteps: [LaunchStep] = []
+    private var launchSteps: [LaunchStep] = []
     private var executedSteps = Set<String>()
     
     private init() {
-        setupAllSteps()
+        setupLaunchSteps()
     }
     
-    func executeAllStepsBlocking() {
+    func executeLaunchSteps() {
         let startTime = CFAbsoluteTimeGetCurrent()
         print("🚀 Starting app launch sequence...")
         
-        // Comment out dependency resolution for worst-case demo
-        // let orderedSteps = DependencyResolver.resolveExecutionOrder(for: allSteps)
-        
-        // Use raw array order - no dependency management (worst case!)
-        let orderedSteps = allSteps
-        
-        for step in orderedSteps {
+        for step in launchSteps {
             let stepStartTime = CFAbsoluteTimeGetCurrent()
             
             print("⚡ Executing: \(step.name)")
@@ -45,47 +39,47 @@ class LaunchOrchestrator {
         print("🎉 Launch sequence completed in \(String(format: "%.2f", totalTime))s")
     }
     
-    private func setupAllSteps() {
+    private func setupLaunchSteps() {
         // Steps are arranged in proper dependency order - DO NOT REORDER without checking dependencies!
         
         // Foundation Layer (no dependencies)
-        allSteps.append(AppConfigStep())
-        allSteps.append(LoggingConfigurationStep())
-        allSteps.append(NetworkMonitoringStep())
-        allSteps.append(SecureStorageStep())
-        allSteps.append(UserDefaultsStep())
-        allSteps.append(AudioSessionStep())
+        launchSteps.append(AppConfigStep())
+        launchSteps.append(LoggingConfigurationStep())
+        launchSteps.append(NetworkMonitoringStep())
+        launchSteps.append(SecureStorageStep())
+        launchSteps.append(UserDefaultsStep())
+        launchSteps.append(AudioSessionStep())
         
         // Infrastructure Layer (depends on Foundation)
-        allSteps.append(CrashReportingStep()) // depends on LoggingConfiguration
-//        allSteps.append(DatabaseSchemaStep()) // depends on SecureStorage
-        allSteps.append(APIConfigurationStep()) // depends on AppConfig, NetworkMonitoring
-        allSteps.append(DIContainerStep()) // depends on AppConfig
-        allSteps.append(FeatureFlagsStep()) // depends on AppConfig, NetworkMonitoring
-        allSteps.append(PermissionsStep()) // depends on UserDefaults
+        launchSteps.append(CrashReportingStep()) // depends on LoggingConfiguration
+//        launchSteps.append(DatabaseSchemaStep()) // depends on SecureStorage
+        launchSteps.append(APIConfigurationStep()) // depends on AppConfig, NetworkMonitoring
+        launchSteps.append(DIContainerStep()) // depends on AppConfig
+        launchSteps.append(FeatureFlagsStep()) // depends on AppConfig, NetworkMonitoring
+        launchSteps.append(PermissionsStep()) // depends on UserDefaults
         
         // Data Layer (depends on Infrastructure)
-        allSteps.append(PersistenceStep()) // depends on AppConfig, DatabaseSchema - WILL CRASH if DatabaseSchema is missing!
-        allSteps.append(CacheConfigurationStep()) // depends on Persistence
-        allSteps.append(MigrationStep()) // depends on Persistence, DatabaseSchema
+        launchSteps.append(PersistenceStep()) // depends on AppConfig, DatabaseSchema - WILL CRASH if DatabaseSchema is missing!
+        launchSteps.append(CacheConfigurationStep()) // depends on Persistence
+        launchSteps.append(MigrationStep()) // depends on Persistence, DatabaseSchema
         
         // Services Layer (depends on Data and Infrastructure)
-        allSteps.append(AuthStep()) // depends on SecureStorage, APIConfiguration, NetworkMonitoring
-        allSteps.append(ListenersStep()) // depends on APIConfiguration, Persistence
-        allSteps.append(AnalyticsStep()) // depends on AppConfig, UserDefaults, Auth
-        allSteps.append(PushNotificationsStep()) // depends on Auth, APIConfiguration
-        allSteps.append(RemoteConfigurationStep()) // depends on APIConfiguration, Auth
-        allSteps.append(DeepLinksStep()) // depends on AppConfig, Auth
-        allSteps.append(InAppPurchaseStep()) // depends on Auth, APIConfiguration
+        launchSteps.append(AuthStep()) // depends on SecureStorage, APIConfiguration, NetworkMonitoring
+        launchSteps.append(ListenersStep()) // depends on APIConfiguration, Persistence
+        launchSteps.append(AnalyticsStep()) // depends on AppConfig, UserDefaults, Auth
+        launchSteps.append(PushNotificationsStep()) // depends on Auth, APIConfiguration
+        launchSteps.append(RemoteConfigurationStep()) // depends on APIConfiguration, Auth
+        launchSteps.append(DeepLinksStep()) // depends on AppConfig, Auth
+        launchSteps.append(InAppPurchaseStep()) // depends on Auth, APIConfiguration
         
         // Features Layer (depends on Services)
-        allSteps.append(CriticalFeaturesStep()) // depends on Persistence, APIConfiguration, FeatureFlags, DIContainer
-        allSteps.append(ABTestingStep()) // depends on FeatureFlags, Analytics
-        allSteps.append(PhotoProcessingStep()) // depends on Permissions, CacheConfiguration
-        allSteps.append(LiveActivitiesStep()) // depends on APIConfiguration, PushNotifications
-        allSteps.append(NonCriticalFeaturesStep()) // depends on CriticalFeatures, Analytics
+        launchSteps.append(CriticalFeaturesStep()) // depends on Persistence, APIConfiguration, FeatureFlags, DIContainer
+        launchSteps.append(ABTestingStep()) // depends on FeatureFlags, Analytics
+        launchSteps.append(PhotoProcessingStep()) // depends on Permissions, CacheConfiguration
+        launchSteps.append(LiveActivitiesStep()) // depends on APIConfiguration, PushNotifications
+        launchSteps.append(NonCriticalFeaturesStep()) // depends on CriticalFeatures, Analytics
         
         // Final Step (depends on everything)
-        allSteps.append(LaunchFinishedStep()) // depends on all previous steps
+        launchSteps.append(LaunchFinishedStep()) // depends on all previous steps
     }
 }
